@@ -9,11 +9,29 @@
 
  td,
  th {
-   border: 1px solid #dddddd;
+   border: 1px solid #221e1e;
    text-align: left;
    padding: 10px;
+   
  }
 
  tr:nth-child(even) {
    background-color: #dddddd;
+   margin-top: 10px;
+ }
+
+ .delBtn {
+   background-color: red;
+   border: 0;
+   padding: 7px 10px;
+   border-radius: 10px;
+   cursor: pointer;
+ }
+
+ .editBtn {
+   background-color: rgb(112, 185, 231);
+   border: 0;
+   padding: 7px 10px;
+   border-radius: 10px;
+   cursor: pointer;
  }

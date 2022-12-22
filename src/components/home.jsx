@@ -18,8 +18,25 @@ export const Home = () => {
         }
 
     }
-    function handleDelete() {
-        console.log("de")
+    async function handleDelete(e) {
+
+        const payload = {
+            "id": e
+        };
+        console.log(payload)
+        const res = await fetch('https://7mv3kjs2rhjd5m2biuquvzbcrm0kehjf.lambda-url.us-east-1.on.aws', {
+            method: "delete",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: payload
+        });
+        const data = res.json();
+        if (data.message === "USER_DELETED") {
+            window.alert(data.message);
+            getData();
+        }
     }
     function handleEdit() {
 
@@ -30,26 +47,30 @@ export const Home = () => {
     return !noData ? (
         <>
             <table >
-                <tr>
-                    <th colSpan="2" style={{ backgroundColor: "lightGreen" }}>username</th>
-                    <th colSpan="4" style={{ backgroundColor: "lightGreen" }}>Name</th>
-                    <th colSpan="2" style={{ backgroundColor: "lightGreen" }}>E-mail</th>
-                    <th style={{ backgroundColor: "lightGreen" }}> Edit </th>
-                    <th style={{ backgroundColor: "lightGreen" }}> Delete </th>
-                </tr>
-                {data.map((users) => {
-                    return <Fragment key={users._id}>
-                        <tr>
-                            <td colSpan="2">{users.username}</td>
-                            <td colSpan="4" >{users.name}</td>
-                            <td colSpan="2">{users.email}</td>
-                            <td ><button onClick={handleDelete} >Edit</button></td>
-                            <td ><button onClick={handleEdit}>Delete</button></td>
-                        </tr>
+                <tbody>
 
-                    </Fragment>
-                })}
 
+                    <tr>
+                        <th colSpan="1" style={{ backgroundColor: "lightGreen" }}>Serial No.</th>
+                        <th colSpan="2" style={{ backgroundColor: "lightGreen" }}>username</th>
+                        <th colSpan="4" style={{ backgroundColor: "lightGreen" }}>Name</th>
+                        <th colSpan="2" style={{ backgroundColor: "lightGreen" }}>E-mail</th>
+                        <th style={{ backgroundColor: "lightGreen" }}> Edit </th>
+                        <th style={{ backgroundColor: "lightGreen" }}> Delete </th>
+                    </tr>
+                    {data.map((users, index) => {
+                        return <Fragment key={users._id}>
+                            <tr> <td colSpan="1">{index + 1}</td>
+                                <td colSpan="2">{users.username}</td>
+                                <td colSpan="4" >{users.name}</td>
+                                <td colSpan="2">{users.email}</td>
+                                <td ><button className='editBtn' onClick={() => handleEdit(users._id)} >Edit</button></td>
+                                <td ><button className='delBtn' onClick={() => handleDelete(users._id)}>Delete</button></td>
+                            </tr>
+
+                        </Fragment>
+                    })}
+                </tbody>
             </table>
         </>
     ) : <>
