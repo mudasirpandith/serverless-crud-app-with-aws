@@ -9,7 +9,7 @@ export const Home = () => {
             method: "get"
         })
         const response = await res.json();
-        if (response.body.length !== 0) {
+        if (response.body.length !== 0 || response.body !== []) {
             setData(response.body)
             setNotData(false)
 
@@ -25,18 +25,20 @@ export const Home = () => {
         };
         console.log(payload)
         const res = await fetch('https://7mv3kjs2rhjd5m2biuquvzbcrm0kehjf.lambda-url.us-east-1.on.aws', {
-            method: "delete",
+            method: "post",
+            mode: 'no-cors',
+
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: payload
+            body: JSON.stringify(payload)
         });
-        const data = res.json();
-        if (data.message === "USER_DELETED") {
-            window.alert(data.message);
-            getData();
-        }
+        console.log(res)
+        console.log(res.status)
+
+        getData();
+
     }
     function handleEdit() {
 
