@@ -1,4 +1,4 @@
- table {
+ /* table {
    font-family: arial, sans-serif;
    border-collapse: collapse;
    width: 100%;
@@ -18,20 +18,118 @@
  tr:nth-child(even) {
    background-color: #dddddd;
    margin-top: 10px;
- }
+*/ .header {
+    display: flex;
+    flex-direction: column;
+    margin: 0 ;
+    background-color: green;
+    color: white;
+  }
 
+ 
+.site-details {
+  line-height: 4ch;
+  margin: 10px;
+} 
+.site-name {
+  line-height: 3ch;
+  margin: 0;
+  margin: 0 10px;
+}
  .delBtn {
    background-color: red;
    border: 0;
-   padding: 7px 10px;
+  padding: 10px 20px;
    border-radius: 10px;
+  margin: 5px 0;
    cursor: pointer;
  }
 
  .editBtn {
-   background-color: rgb(112, 185, 231);
+  background-color: rgb(79, 243, 139);
    border: 0;
-   padding: 7px 10px;
+  padding: 10px 20px;
    border-radius: 10px;
+  margin: 5px 0;
    cursor: pointer;
+ }
+ .data {
+   display: flex;
+   flex-direction: column;
+   /* background-color: rgb(243, 212, 134); */
+   margin: 10px 5px;
+   border-radius: 20px;
+   line-height: 3ch;
+   width: 250px;
+   align-items: flex-start;
+   padding: 20px;
+   color: white;
+   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkXblQKKc8qR5AEgX4cONWW5v-evLMLLmifA&usqp=CAU');
+ }
+
+ @media screen and (max-width: 480px) {
+   .data {
+     width: 100%;
+    
+   }
+  
+ }
+
+ .buttons {
+   display: flex;
+   justify-content: space-evenly;
+   /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFU4ic7ixdpzPayxJLMi8mvkf_ZxCdgzY6yA&usqp=CAU'); */
+   border-radius: 20px;
+   width: 100%;
+   font-weight: 500;
+
+ }
+
+
+
+ p {
+   margin: 0;
+ }
+
+ .home {
+  
+   display: flex;
+   /* margin: 0 10px; */
+   flex-wrap: wrap;
+   gap: 1px;
+ justify-content: center;
+/* background-image: url('https://i.pinimg.com/564x/2d/12/a9/2d12a90fe4100fdac25941f10ee46978.jpg'); */
+ }
+ a{
+  text-decoration: none;
+  color: inherit;
+ }
+
+ .item {
+   display: flex;
+   margin: 5px 0;
+ }
+
+ img {
+   margin: 0 10px;
+   width: 30px;
+   height: 30px;
+   border-radius: 50%;
+ }
+ .fab{
+  position:fixed;
+  z-index: +1;
+  bottom: 20px;
+  right: 2px;
+ }
+ .fab-no-user{
+  display: flex;
+ 
+ justify-content: center;
+ }
+
+ form{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
  }
