@@ -1,8 +1,5 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./home.css"
-import UserPic from '../images/username.png'
-import UserNamePic from '../images/name.png'
-import EmailPic from '../images/email.png'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -14,10 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 const currencies = [
-    {
-        value: 'React Developer',
-        label: 'React Developer',
-    },
+
     {
         value: 'Frontend Developer',
         label: 'Frontend Developer',
@@ -29,6 +23,10 @@ const currencies = [
     {
         value: 'Full Stack Developer',
         label: 'Full Stack Developer',
+    }, 
+    {
+        value: 'ML Engineer',
+        label: 'ML Engineer',
     },
 ];
 
@@ -36,6 +34,8 @@ export const Home = () => {
     const [data, setData] = useState([])
     const [noData, setNotData] = useState(true)
     const [open, setOpen] = React.useState(false);
+    const [loading, setLoading] = useState(0)
+    const [pageLoading, setPageLoading] = useState(0)
 
     const [userData, setUserData] = useState({
         username: "",
@@ -59,7 +59,8 @@ export const Home = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        handleClickClose()
+
+        setLoading(1)
 
         await fetch("https://njcz4w5gzj5lavhmkk7mjk3xji0qfmyp.lambda-url.us-east-1.on.aws", {
             method: "post",
@@ -74,6 +75,8 @@ export const Home = () => {
         })
         setUserData({ username: "", name: "", email: "", role: "" });
         getData()
+        setLoading(0)
+        handleClickClose();
 
 
     }
@@ -85,14 +88,16 @@ export const Home = () => {
         const response = await res.json();
         if (response.length === 0) {
             setNotData(1)
+            setPageLoading(1)
         } else {
             setData(response)
             setNotData(0)
+            setPageLoading(1)
 
         }
     }
     async function handleDelete(e) {
-
+        setLoading(1)
         const payload = {
             "id": e
         };
@@ -109,7 +114,7 @@ export const Home = () => {
       });
 
         getData();
-
+        setLoading(0)
 
     }
     function handleEdit() {
@@ -118,54 +123,54 @@ export const Home = () => {
     useEffect(() => {
         getData();
     }, [data.length])
-    return !noData ? (
+    return pageLoading ? (!noData ? (
         <><div className="header">
             <h1 className='site-name'>UserCloud</h1>
-            <p className='site-details'>Our website has been designed with a focus on using <strong> serverless technology powered by AWS</strong>. Built with<strong>  ReactJS</strong> and utilizing <strong>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users powered by MongoDB. In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
+            <p className='site-details'>This website has been designed with a focus on using <strong> serverless technology powered by AWS</strong>. Built with<strong>  ReactJS</strong> and utilizing <strong>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users powered by MongoDB. In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
         </div>
 
             <div className='home'>
 
-                {data.map((users) => {
+                {data.slice().reverse().map((users) => {
                     const url = `mailto:` + users.email
                     return <div className='data' key={users._id}>
 
                         <div className="item">
-                            <img src={UserPic} alt="user" />
+
+                            <p> <strong>username:</strong>  </p>
                             <p  >{users.username}</p>
                         </div>
                         <div className="item">
-                            <img src={UserNamePic} alt="user" />
+                            <p> <strong>Name:</strong>  </p>
                             <p  >{users.name}</p>
                         </div><div className="item">
-                            <img src={EmailPic} alt="user" />
+                            <p> <strong>E-mail:</strong>  </p>
                             <a href={url}>{users.email}</a>
 
                         </div>
                         <div className="item">
-                            <img src={EmailPic} alt="user" />
+                            <p> <strong>Role:</strong>  </p>
                             <p>{users.role}</p>
 
                         </div>
                         <div className="buttons">
                             <button className='editBtn' onClick={() => handleEdit(users._id)} >Edit</button>
-                            <button className='delBtn' onClick={() => handleDelete(users._id)}>Delete</button>
+                            <button className='delBtn' onClick={() => handleDelete(users._id)}>{loading ? "Deleting" : "Delete"} </button>
                         </div>
 
 
                     </div>
                     })}
                 <div className="fab">
-                    {/* <Fab color='success' size='large' onClick={handleClickOpen} children="ADD" /> */}
                     <Button aria-setsize="50" variant='contained' onClick={handleClickOpen} color='secondary'>Add</Button>
                 </div>
                 <div>
 
                     <Dialog
                         open={open}
+                        scroll='paper'
                         TransitionComponent={Transition}
                         keepMounted
-
                         aria-describedby="alert-dialog-slide-description"
                     >
                         <DialogTitle>{"Add New User"}</DialogTitle>
@@ -194,7 +199,7 @@ export const Home = () => {
                                         ))}
                                     </TextField>
 
-                                    <Button type='submit' variant='contained' color='success'>Submit</Button>
+                                    <Button type='submit' variant='contained' color='success'>{loading ? "Adding" : "ADD"}</Button>
                                     <Button variant="outlined" color='inherit' onClick={handleClickClose}>Cancel</Button>
                                 </form>
 
@@ -212,8 +217,7 @@ export const Home = () => {
         </div>
         <center><h1 style={{ lineHeight: "3ch", margin: "6px" }}>No User In Database</h1></center>
         <center><p style={{ lineHeight: "3ch", marginBottom: "20px" }}>Please Add User</p></center>
-        <div className="fab-no-user">
-            {/* <Fab color='success' size='large' onClick={handleClickOpen} children="ADD" /> */}
+            <div className="fab-no-user">
             <Button aria-setsize="50" variant='contained' onClick={handleClickOpen} color='secondary'>Add</Button>
         </div>
         <div>
@@ -221,8 +225,7 @@ export const Home = () => {
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
-                keepMounted
-
+                    keepMounted   
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogTitle>{"Add New User"}</DialogTitle>
@@ -261,5 +264,16 @@ export const Home = () => {
             </Dialog>
         </div>
 
+    </>) : (
+        <>
+            <div style={{ textAlign: "center", display: "flex", height: window.innerHeight, justifyContent: "center", flexDirection: "column" }}>
+                <h1 style={{ color: "green", margin: "5px" }}>
+                    UserCloud
+                </h1>
+                <p style={{ color: "black", margin: "0" }}>Serverless Powered By AWS Lambda</p>
+                <h3 style={{ color: "red", margin: "5px" }}>Loading</h3>
+            </div>
+
     </>
+        )
 }
