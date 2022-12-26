@@ -32,7 +32,18 @@
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
+  <div id="root">
+  
+  
+  
+    <div id="h" style="display:flex; flex-direction: column;justify-content: center;text-align: center; ">
+      <h1 style="color: green; margin: 5px;">
+        UserCloud
+      </h1>
+      <p style="color: black; margin: 0;">Serverless Powered By AWS Lambda</p>
+      <h3 style="color: red; margin: 5px;">Loading</h3>
+    </div>
+  </div>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -43,6 +54,12 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+  
 </body>
+<script>
+  let height = `${window.innerHeight}px`;
+  console.log(height)
+  document.getElementById("h").style.height = height;
 
+</script>
 </html>
