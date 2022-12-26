@@ -7,10 +7,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+import { GET_USERS, CREATE_USER } from './url_constants'
+import { DataCard } from './dataCard';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-const currencies = [
+const roles = [
 
     {
         value: 'Frontend Developer',
@@ -57,31 +59,9 @@ export const Home = () => {
     const handleClickClose = () => {
         setOpen(false);
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
 
-        setLoading(1)
-
-        await fetch("https://njcz4w5gzj5lavhmkk7mjk3xji0qfmyp.lambda-url.us-east-1.on.aws", {
-            method: "post",
-            mode: 'no-cors',
-
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-
-        })
-        setUserData({ username: "", name: "", email: "", role: "" });
-        getData()
-        setLoading(0)
-        handleClickClose();
-
-
-    }
-    const getData = async () => {
-        const res = await fetch('https://lmm43aqox4akdgw3fqta6g5hwa0zbzux.lambda-url.us-east-1.on.aws/', {
+    const getUsers = async () => {
+        const res = await fetch(GET_USERS, {
             method: "get"
         })
 
@@ -96,32 +76,35 @@ export const Home = () => {
 
         }
     }
-    async function handleDelete(e) {
-        setLoading(1)
-        const payload = {
-            "id": e
-        };
 
-        await fetch('https://7mv3kjs2rhjd5m2biuquvzbcrm0kehjf.lambda-url.us-east-1.on.aws', {
+
+    const handleCreateUser = async (e) => {
+        e.preventDefault();
+        setLoading(1);
+
+        await fetch(CREATE_USER, {
             method: "post",
             mode: 'no-cors',
-
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(payload)
-      });
+            body: JSON.stringify(userData)
 
-        getData();
+        })
+        setUserData({ username: "", name: "", email: "", role: "" });
+        getUsers();
         setLoading(0)
+        handleClickClose();
+
 
     }
-    function handleEdit() {
 
+    function handleEdit() {
+        window.alert('Comming')
     }
     useEffect(() => {
-        getData();
+        getUsers();
     }, [data.length])
     return pageLoading ? (!noData ? (
         <><div className="header">
@@ -132,34 +115,11 @@ export const Home = () => {
             <div className='home'>
 
                 {data.slice().reverse().map((users) => {
-                    const url = `mailto:` + users.email
-                    return <div className='data' key={users._id}>
 
-                        <div className="item">
-
-                            <p> <strong>username:</strong>  </p>
-                            <p  >{users.username}</p>
-                        </div>
-                        <div className="item">
-                            <p> <strong>Name:</strong>  </p>
-                            <p  >{users.name}</p>
-                        </div><div className="item">
-                            <p> <strong>E-mail:</strong>  </p>
-                            <a href={url}>{users.email}</a>
-
-                        </div>
-                        <div className="item">
-                            <p> <strong>Role:</strong>  </p>
-                            <p>{users.role}</p>
-
-                        </div>
-                        <div className="buttons">
-                            <button className='editBtn' onClick={() => handleEdit(users._id)} >Edit</button>
-                            <button className='delBtn' onClick={() => handleDelete(users._id)}>{loading ? "Deleting" : "Delete"} </button>
-                        </div>
-
-
+                    return <div key={users._id}>
+                        <DataCard users={users} getUsers={getUsers} handleEdit={handleEdit} />
                     </div>
+
                     })}
                 <div className="fab">
                     <Button aria-setsize="50" variant='contained' onClick={handleClickOpen} color='secondary'>Add</Button>
@@ -177,7 +137,7 @@ export const Home = () => {
                         <DialogContent>
                             <div id="alert-dialog-slide-description">
 
-                                <form onSubmit={handleSubmit} method="post" >
+                                <form onSubmit={handleCreateUser} method="post" >
 
                                     <TextField required id="filled-basic" label="username" name='username' value={userData.username} variant="filled" onChange={handleChange} />
                                     <TextField required id="filled-basic" label="Name" name='name' variant="filled" value={userData.name} onChange={handleChange} />
@@ -192,14 +152,14 @@ export const Home = () => {
                                         value={userData.role}
                                         onChange={handleChange}
                                     >
-                                        {currencies.map((option) => (
+                                        {roles.map((option) => (
                                             <MenuItem key={option.value} value={option.value}>
                                                 {option.label}
                                             </MenuItem>
                                         ))}
                                     </TextField>
 
-                                    <Button type='submit' variant='contained' color='success'>{loading ? "Adding" : "ADD"}</Button>
+                                    <Button type='submit' variant='contained' disabled={loading ? true : false} color='success'>{loading ? "Adding" : "ADD"}</Button>
                                     <Button variant="outlined" color='inherit' onClick={handleClickClose}>Cancel</Button>
                                 </form>
 
@@ -207,6 +167,10 @@ export const Home = () => {
                         </DialogContent>
 
                     </Dialog>
+
+
+
+
                 </div>
 
             </div>
@@ -222,46 +186,47 @@ export const Home = () => {
         </div>
         <div>
 
-            <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                    keepMounted   
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>{"Add New User"}</DialogTitle>
-                <DialogContent>
-                    <div id="alert-dialog-slide-description">
+                <Dialog
+                    open={open}
+                    scroll='paper'
+                    TransitionComponent={Transition}
+                    keepMounted
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle>{"Add New User"}</DialogTitle>
+                    <DialogContent>
+                        <div id="alert-dialog-slide-description">
 
-                        <form onSubmit={handleSubmit} method="post" >
+                            <form onSubmit={handleCreateUser} method="post" >
 
-                            <TextField required id="filled-basic" label="username" name='username' value={userData.username} variant="filled" onChange={handleChange} />
-                            <TextField required id="filled-basic" label="Name" name='name' variant="filled" value={userData.name} onChange={handleChange} />
-                            <TextField required id="filled-basic" label="E-mail" name='email' variant="filled" value={userData.email} onChange={handleChange} />
-                            <TextField required
-                                id="outlined-select-currency"
-                                select
-                                label="Select"
-                                defaultValue="React Developer"
-                                helperText="Please select your role"
-                                name='role'
-                                value={userData.role}
-                                onChange={handleChange}
-                            >
-                                {currencies.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                                <TextField required id="filled-basic" label="username" name='username' value={userData.username} variant="filled" onChange={handleChange} />
+                                <TextField required id="filled-basic" label="Name" name='name' variant="filled" value={userData.name} onChange={handleChange} />
+                                <TextField required id="filled-basic" label="E-mail" name='email' variant="filled" value={userData.email} onChange={handleChange} />
+                                <TextField required
+                                    id="outlined-select-currency"
+                                    select
+                                    label="Select"
+                                    defaultValue="React Developer"
+                                    helperText="Please select your role"
+                                    name='role'
+                                    value={userData.role}
+                                    onChange={handleChange}
+                                >
+                                    {roles.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
 
-                            <Button type='submit' variant='contained' color='success'>Submit</Button>
-                            <Button variant="outlined" color='inherit' onClick={handleClickClose}>Cancel</Button>
-                        </form>
+                                <Button type='submit' variant='contained' disabled={loading ? true : false} color='success'>{loading ? "Adding" : "ADD"}</Button>
+                                <Button variant="outlined" color='inherit' onClick={handleClickClose}>Cancel</Button>
+                            </form>
 
-                    </div>
-                </DialogContent>
+                        </div>
+                    </DialogContent>
 
-            </Dialog>
+                </Dialog>
         </div>
 
     </>) : (
