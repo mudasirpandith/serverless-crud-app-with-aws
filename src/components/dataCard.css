@@ -1,15 +1,22 @@
 .card {
     display: flex;
     height: 150px;
+    flex-direction: column;
     width: 300px;
     background-color: red;
     background-image: url('https://i.pinimg.com/736x/2b/46/7f/2b467f91bf57a97a8921940309751d27.jpg');
     border-radius: 20px;
     border: grey solid .01px;
     color: rgb(51, 51, 88);
+    padding: 10px;
 
 }
 
+@media screen and (max-width: 480px) {
+.card{
+    width: 350px;
+}
+}
 
 .grid {
     display: flex;
@@ -17,6 +24,14 @@
     flex: 4;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
+}
+.grid-top {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 4;
+    flex-direction: column;
+ 
     text-align: center;
 }
 
@@ -45,7 +60,7 @@ h5 {
 }
 
 .user-name {
-    font-size: 13px;
+    font-size: 16px;
 }
 
 .user-role {

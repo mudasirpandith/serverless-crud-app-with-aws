@@ -107,10 +107,11 @@ export const Home = () => {
         getUsers();
     }, [data.length])
     return pageLoading ? (!noData ? (
-        <><div style={{ height: window.innerHeight }} className="header">
+        <div className='home-page'><div style={{ height: window.innerHeight }} className="header">
             <h1 className='site-name'>UserCloud</h1>
-            <p className='site-details'>This website has been designed with a focus on using <strong style={{ color: "blue" }}> serverless technology powered by AWS</strong>. Built with<strong style={{ color: "blue" }}>  ReactJS</strong> and utilizing <strong style={{ color: "blue" }}>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users  <strong style={{ color: "blue" }}>powered by MongoDB</strong> . In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
+            <p className='site-details'>This website has been designed with a focus on using <strong style={{ color: "yellow" }}> serverless technology powered by AWS</strong>. Built with<strong style={{ color: "yellow" }}>  ReactJS</strong> and utilizing <strong style={{ color: "yellow" }}>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users  <strong style={{ color: "yellow" }}>powered by MongoDB</strong> . In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
             <img className='scroll-img' src="https://thumbs.gfycat.com/PhonyOffensiveBarbet.webp" alt="x" />
+            <p className='site-details'>Scroll Up</p>
         </div>
 
             <div className='home'>
@@ -175,10 +176,10 @@ export const Home = () => {
                 </div>
 
             </div>
-        </>) : <>
+        </div>) : <>
         <div style={{ height: window.innerHeight }} className="header">
             <h1 className='site-name'>UserCloud</h1>
-            <p className='site-details'>This website has been designed with a focus on using <strong style={{ color: "blue" }}> serverless technology powered by AWS</strong>. Built with<strong style={{ color: "blue" }}>  ReactJS</strong> and utilizing <strong style={{ color: "blue" }}>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users  <strong style={{ color: "blue" }}>powered by MongoDB</strong> . In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
+                <p className='site-details'>This website has been designed with a focus on using <strong style={{ color: "yellow" }}> serverless technology powered by AWS</strong>. Built with<strong style={{ color: "blue" }}>  ReactJS</strong> and utilizing <strong style={{ color: "blue" }}>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users  <strong style={{ color: "blue" }}>powered by MongoDB</strong> . In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
             <img className='scroll-img' src="https://thumbs.gfycat.com/PhonyOffensiveBarbet.webp" alt="x" />
         </div>
         <center><h1 style={{ lineHeight: "3ch", margin: "6px" }}>No User In Database</h1></center>

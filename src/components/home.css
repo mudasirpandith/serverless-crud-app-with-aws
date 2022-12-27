@@ -1,46 +1,34 @@
- /* table {
-   font-family: arial, sans-serif;
-   border-collapse: collapse;
-   width: 100%;
-   font-size: 12px;
-   line-height: 3ch;
-   color: black;
- }
-
- td,
- th {
-   border: 1px solid #221e1e;
-   text-align: left;
-   padding: 10px;
-   
- }
-
- tr:nth-child(even) {
-   background-color: #dddddd;
-   margin-top: 10px;
-*/ .header {
+ .header {
     display: flex;
     flex-direction: column;
-justify-content: center;
+    justify-content: center;
     margin: 0 ;
     text-align: center;
+    background-image: url('https://img.freepik.com/free-vector/cloud-network-system-background-vector-social-media-banner_53876-111844.jpg');
+      background-size: cover;
       /* background-color: antiquewhite; */
   }
-
+.home-page {
+  background-image: url('https://img.freepik.com/free-vector/cloud-network-system-background-vector-social-media-banner_53876-111844.jpg');
+  background-size: cover;
+}
  
 .site-details {
   line-height: 2.5ch;
+  color: orange;
+    font-size: 30px;
   margin: 10px;
 } 
 .site-name {
   line-height: 3ch;
+  font-size: 60px;
   margin: 0 auto;
-    color: green;
+color: rgb(247, 187, 7);
 }
  .delBtn {
   background-color: rgb(243, 141, 141);
-   border: 0;
-  width: 60px;
+    border: 0;
+      width: 60px;
     height: 30px;
    border-radius: 10px;
   margin: 5px 0;
@@ -58,18 +46,7 @@ justify-content: center;
    cursor: pointer;
   text-align: center;
  }
- .data {
-   display: flex;
-   flex-direction: column;
-   margin: 10px 5px;
-  border: solid 1px;
-   border-radius: 20px;
-   line-height: 3ch;
-  width: 250px;
-  flex-wrap: wrap;
-   align-items: flex-start;
-   padding: 20px;
-  }
+
 
  @media screen and (max-width: 480px) {
    .data {
@@ -105,25 +82,15 @@ justify-content: center;
    flex-wrap: wrap;
 gap: 5px;
  justify-content: center;
-background-color: rgb(240, 235, 235);
+
  }
  a{
   text-decoration: none;
   color: inherit;
  }
 
- .item {
-   display: flex;
-  flex-direction: column;
-   margin: 5px 0;
- }
 
- img {
-   margin: 0 10px;
-   width: 30px;
-   height: 30px;
-   border-radius: 50%;
- }
+
  .fab{
   position:fixed;
   z-index: +1;
@@ -132,7 +99,6 @@ background-color: rgb(240, 235, 235);
  }
  .fab-no-user{
   display: flex;
- 
  justify-content: center;
  }
 
@@ -142,7 +108,6 @@ background-color: rgb(240, 235, 235);
   gap:20px;
  }
  .scroll-img {
-
    height: 100px;
    width: 100px;
    margin: 20px auto;
