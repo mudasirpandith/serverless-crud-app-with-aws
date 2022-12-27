@@ -28,10 +28,9 @@
 }
 .grid-top {
     display: flex;
-    flex-wrap: wrap;
+
     flex: 4;
     flex-direction: column;
- 
     text-align: center;
 }
 

@@ -32,9 +32,7 @@ export const DataCard = (users) => {
 
                 <h2 className='user-name'>{users.users.name}</h2>
                 <h4 className='user-role'>{users.users.role}</h4>
-                <h5>
-             
-                </h5>
+               
             </div>
             <div className="grid">
                 <div className="icon-based">
