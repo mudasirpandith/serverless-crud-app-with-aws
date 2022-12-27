@@ -129,6 +129,7 @@ export const Home = () => {
                 <div>
 
                     <Dialog
+                    style={{backgroundImage:"url('https://img.freepik.com/free-vector/cloud-network-system-background-vector-social-media-banner_53876-111844.jpg')", backgroundSize:"cover"}}
                         open={open}
                         scroll='paper'
                         TransitionComponent={Transition}
@@ -141,14 +142,14 @@ export const Home = () => {
 
                                 <form onSubmit={handleCreateUser} method="post" >
 
-                                    <TextField required id="filled-basic" label="username" name='username' value={userData.username} variant="filled" onChange={handleChange} />
-                                    <TextField required id="filled-basic" label="Name" name='name' variant="filled" value={userData.name} onChange={handleChange} />
-                                    <TextField required id="filled-basic" label="E-mail" name='email' variant="filled" value={userData.email} onChange={handleChange} />
+                                    <TextField required id="filled-basic" label="username" placeholder='e.g. usercloud' name='username' value={userData.username} variant="outlined" onChange={handleChange} />
+                                    <TextField required id="filled-basic" label="Name"placeholder='e.g Usercloud' name='name' variant="outlined" value={userData.name} onChange={handleChange} />
+                                    <TextField required id="filled-basic" label="E-mail" name='email'  placeholder='e.g usercloud@usercloud.com' variant="outlined" value={userData.email} onChange={handleChange} />
                                     <TextField required
                                         id="outlined-select-currency"
                                         select
                                         label="Select"
-                                        defaultValue="React Developer"
+                                        defaultValue="Full Stack Developer"
                                         helperText="Please select your role"
                                         name='role'
                                         value={userData.role}
