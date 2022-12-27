@@ -111,4 +111,5 @@ gap: 5px;
    height: 100px;
    width: 100px;
    margin: 20px auto;
+   transform: rotate(180deg);
  }
