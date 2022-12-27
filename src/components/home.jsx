@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import { GET_USERS, CREATE_USER } from './url_constants'
+import { GET_USERS_URL, CREATE_USER_URL } from './url_constants'
 import { DataCard } from './dataCard';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -61,7 +61,7 @@ export const Home = () => {
     };
 
     const getUsers = async () => {
-        const res = await fetch(GET_USERS, {
+        const res = await fetch(GET_USERS_URL, {
             method: "get"
         })
 
@@ -82,7 +82,7 @@ export const Home = () => {
         e.preventDefault();
         setLoading(1);
 
-        await fetch(CREATE_USER, {
+        await fetch(CREATE_USER_URL, {
             method: "post",
             mode: 'no-cors',
             headers: {
@@ -107,9 +107,10 @@ export const Home = () => {
         getUsers();
     }, [data.length])
     return pageLoading ? (!noData ? (
-        <><div className="header">
+        <><div style={{ height: window.innerHeight }} className="header">
             <h1 className='site-name'>UserCloud</h1>
-            <p className='site-details'>This website has been designed with a focus on using <strong> serverless technology powered by AWS</strong>. Built with<strong>  ReactJS</strong> and utilizing <strong>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users powered by MongoDB. In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
+            <p className='site-details'>This website has been designed with a focus on using <strong style={{ color: "blue" }}> serverless technology powered by AWS</strong>. Built with<strong style={{ color: "blue" }}>  ReactJS</strong> and utilizing <strong style={{ color: "blue" }}>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users  <strong style={{ color: "blue" }}>powered by MongoDB</strong> . In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
+            <img className='scroll-img' src="https://thumbs.gfycat.com/PhonyOffensiveBarbet.webp" alt="x" />
         </div>
 
             <div className='home'>
@@ -175,9 +176,10 @@ export const Home = () => {
 
             </div>
         </>) : <>
-        <div className="header">
+        <div style={{ height: window.innerHeight }} className="header">
             <h1 className='site-name'>UserCloud</h1>
-            <p className='site-details'>Our website has been designed with a focus on using <strong> serverless technology powered by AWS</strong>. Built with<strong>  ReactJS</strong> and utilizing <strong>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users powered by MongoDB. In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
+            <p className='site-details'>This website has been designed with a focus on using <strong style={{ color: "blue" }}> serverless technology powered by AWS</strong>. Built with<strong style={{ color: "blue" }}>  ReactJS</strong> and utilizing <strong style={{ color: "blue" }}>AWS Lambda </strong>for the backend, our website offers a reliable and efficient way to manage a database of users  <strong style={{ color: "blue" }}>powered by MongoDB</strong> . In addition to the ability to add, delete, edit, and view users. Thank you for visiting!.</p>
+            <img className='scroll-img' src="https://thumbs.gfycat.com/PhonyOffensiveBarbet.webp" alt="x" />
         </div>
         <center><h1 style={{ lineHeight: "3ch", margin: "6px" }}>No User In Database</h1></center>
         <center><p style={{ lineHeight: "3ch", marginBottom: "20px" }}>Please Add User</p></center>
@@ -227,6 +229,7 @@ export const Home = () => {
                     </DialogContent>
 
                 </Dialog>
+
         </div>
 
     </>) : (

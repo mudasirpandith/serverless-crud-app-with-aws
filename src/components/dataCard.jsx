@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './home.css'
-import { DELETE_USER } from './url_constants';
+import './dataCard.css'
+import { DELETE_USER_URL } from './url_constants';
 export const DataCard = (users) => {
     const [loading, setLoading] = useState(0)
     async function handleDelete(e) {
@@ -9,7 +9,7 @@ export const DataCard = (users) => {
             "id": e
         };
 
-        await fetch(DELETE_USER, {
+        await fetch(DELETE_USER_URL, {
             method: "post",
             mode: 'no-cors',
 
@@ -25,35 +25,45 @@ export const DataCard = (users) => {
 
     }
     const url = "mailto" + users.email;
-    return <div className='data' key={users.users._id}>
 
-        <div className="item">
+    return <>
+        <div className="card">
+            <div className="grid">
 
-            <p> <strong>username:</strong>  </p>
-            <p  >{users.users.username}</p>
+                <h2 className='user-name'>{users.users.name}</h2>
+                <h4 className='user-role'>{users.users.role}</h4>
+                <h5>
+                    _ _ _____ _ _
+                </h5>
+            </div>
+            <div className="grid">
+                <div className="icon-based">
+                    <img src="https://img.icons8.com/small/16/null/secured-letter.png" />
+                    <p className="small-text"> {users.users.username}</p>
+
+                </div>
+                <div className="icon-based">
+                    <img src="https://img.icons8.com/small/16/null/secured-letter.png" />
+                    <p className="small-text">{users.users.email}</p>
+
+                </div> 
+                <div className="icon-based">
+                    <img src="https://img.icons8.com/small/16/null/phone.png" />
+                    <p className="small-text"> {users.users._id}</p>
+
+
+                </div>
+
+
+                <div className="user-btns">
+                    <button className='editBtn' onClick={() => users.handleEdit(users.users._id)} >Edit</button>
+                    <button className='delBtn' onClick={() => handleDelete(users.users._id)}>{loading ? "Deleting" : "Delete"} </button>
+
+                </div>
+            </div>
         </div>
-        <div className="item">
-            <p> <strong>Name:</strong>  </p>
-            <p  >{users.users.name}</p>
-        </div><div className="item">
-            <p> <strong>E-mail:</strong>  </p>
-            <a href={url}>{users.users.email}</a>
+    </>
 
-        </div>
-        <div className="item">
-            <p> <strong>Role:</strong>  </p>
-            <p>{users.users.role}</p>
-
-        </div>
-        <div className="buttons">
-            <button className='editBtn' onClick={() => users.handleEdit(users.users._id)} >Edit</button>
-            <button className='delBtn' onClick={() => handleDelete(users.users._id)}>{loading ? "Deleting" : "Delete"} </button>
-        </div>
-
-
-    </div>
 }
 
-
-    // #endregion
 
